@@ -1,16 +1,21 @@
-import { ChangeEvent, forwardRef, useContext, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  lazy,
+  useContext,
+  useRef,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import styles from './addPortfolioModal.module.scss';
 import ReactQuill from 'react-quill-new';
-import { QuillToolbar } from './QuillToolbar';
 import { FieldValues, useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
 import { Dropdown } from '../../common/dropdown/Dropdown';
-import 'react-quill-new/dist/quill.snow.css';
-import '../../../styles/quillStyles.css';
+
 import { CATEGORY_MAPPER_TO_ENG } from '../../../constants/categoryMapper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PostPortfolioPayload } from '../../../types/myPageType';
@@ -20,6 +25,8 @@ import { ToastContext } from '../../../contexts/toastContext';
 import { formatBirth } from '../../../utils/formatBirth';
 import { Image } from '../../common/image/Image';
 
+const QuillEditor = lazy(() => import('../../common/quillEditor/QuillEditor'));
+
 interface AddPortfolioModalPropsType {
   onClose: () => void;
 }
@@ -28,9 +35,6 @@ export const AddPortfolioModal = forwardRef<
   HTMLDivElement,
   AddPortfolioModalPropsType
 >(({ onClose }, ref) => {
-  const modules = {
-    toolbar: { container: '#toolbar' },
-  };
   const { errorToast, successToast } = useContext(ToastContext);
   const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
   const queryClient = useQueryClient();
@@ -172,18 +176,15 @@ export const AddPortfolioModal = forwardRef<
         <div>
           <div className={classNames(styles.inputTitle)}>포트폴리오 내용</div>
           <div className={classNames(styles.contentInputWrapper)}>
-            <QuillToolbar />
             <Controller
               name='content'
               control={control}
               render={({ field }) => (
-                <ReactQuill
+                <QuillEditor
                   {...field}
                   ref={quillRef}
-                  modules={modules}
                   className={classNames(styles.textInput)}
-                  placeholder='내용을 입력하세요'
-                  onChange={(content: string) => field.onChange(content)}
+                  onChangeHandler={(content: string) => field.onChange(content)}
                 />
               )}
             />

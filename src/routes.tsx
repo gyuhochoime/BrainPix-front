@@ -4,18 +4,13 @@ import { Layout } from './pages/layout/Layout';
 import { MyPageLayout } from './pages/layout/MyPageLayout';
 
 /** 아이디어 마켓 */
-const IdeaMarketMain = lazy(() => import('./pages/idea-market/IdeaMarketMain'));
-const IdeaMarketMarketPlace = lazy(
-  () => import('./pages/idea-market/IdeaMarketMarketPlace'),
-);
-const IdeaMarketRegister = lazy(
-  () => import('./pages/idea-market/IdeaMarketRegister'),
-);
+import IdeaMarketMain from './pages/idea-market/IdeaMarketMain';
+import IdeaMarketMarketPlace from './pages/idea-market/IdeaMarketMarketPlace';
+import IdeaRegisteredPage from './pages/idea-market/IdeaRegisteredPage';
+import IdeaMarketRegister from './pages/idea-market/IdeaMarketRegister';
+
 const IdeaMarketRegisterComplete = lazy(
   () => import('./pages/idea-market/IdeaMarketRegisterComplete'),
-);
-const IdeaRegisteredPage = lazy(
-  () => import('./pages/idea-market/IdeaRegisteredPage'),
 );
 const IdeaMarketPayment = lazy(
   () => import('./pages/idea-market/IdeaMarketPayment'),
@@ -28,78 +23,47 @@ const PaymentCancel = lazy(() => import('./pages/idea-market/PaymentCancel'));
 const PaymentSuccess = lazy(() => import('./pages/idea-market/PaymentSuccess'));
 
 /** 요청 과제 */
-const RequestAssignTechZone = lazy(
-  () => import('./pages/request-assign/RequestAssignTechZone'),
-);
+import RequestAssignMain from './pages/request-assign/RequestAssignMain';
+import RequestAssignTechZone from './pages/request-assign/RequestAssignTechZone';
+import RequestRegisteredPage from './pages/request-assign/RequestRegisteredPage';
 const RequestAssignRegisterNow = lazy(
   () => import('./pages/request-assign/RequestAssignRegister'),
 );
 const RequestAssignRegisterComplete = lazy(
   () => import('./pages/request-assign/RequestAssignRegisterComplete'),
 );
-const RequestRegisteredPage = lazy(
-  () => import('./pages/request-assign/RequestRegisteredPage'),
-);
-const RequestAssignMain = lazy(
-  () => import('./pages/request-assign/RequestAssignMain'),
-);
 
 /** 협업 광장 */
-const CollaborationMain = lazy(
-  () => import('./pages/collaboration/CollaborationMain'),
-);
-const PostDetailWithLink = lazy(
-  () => import('./pages/collaboration/PostDetailWithLink'),
-);
-const CollaborationRegister = lazy(
-  () => import('./pages/collaboration/CollaborationRegister'),
-);
+import CollaborationMain from './pages/collaboration/CollaborationMain';
+import PostDetailWithLink from './pages/collaboration/PostDetailWithLink';
+import CollaborationRegister from './pages/collaboration/CollaborationRegister';
 
 /** 마이페이지 */
-const PostsIdeaMarket = lazy(
-  () => import('./pages/my-page/postsIdeaMarket/PostsIdeaMarket'),
-);
-const Info = lazy(() => import('./pages/my-page/info/Info'));
-const MyPage = lazy(() => import('./pages/my-page/myPage/MyPage'));
-const RecentNews = lazy(() => import('./pages/my-page/myPage/RecentNews'));
-const MyPagePosts = lazy(
-  () => import('./pages/my-page/myPagePosts/MyPagePosts'),
-);
-const PostsRequestAssign = lazy(
-  () => import('./pages/my-page/postsRequestAssign/PostsRequestAssign'),
-);
-const PostsCollaboration = lazy(
-  () => import('./pages/my-page/postsCollaboration/PostsCollaboration'),
-);
-const IdeaMarketRegistered = lazy(
-  () => import('./pages/my-page/postsIdeaMarket/IdeaMarketRegistered'),
-);
-const RequestAssignRegistered = lazy(
-  () => import('./pages/my-page/postsRequestAssign/RequestAssignRegistered'),
-);
-const CollaborationRegistered = lazy(
-  () => import('./pages/my-page/postsCollaboration/CollaborationRegistered'),
-);
-const IdeaMarketEdit = lazy(
-  () => import('./pages/my-page/postsIdeaMarket/IdeaMarketEdit'),
-);
-const PurchaseList = lazy(() => import('./pages/my-page/apply/PurchaseList'));
-const ApplyRequest = lazy(() => import('./pages/my-page/apply/ApplyRequest'));
-const ApplyCollaboration = lazy(
-  () => import('./pages/my-page/apply/ApplyCollaboration'),
-);
-const Portfolio = lazy(() => import('./pages/my-page/portfolio/Portfolio'));
-const Message = lazy(() => import('./pages/my-page/message/Message'));
-const SavedPosts = lazy(() => import('./pages/my-page/saved-posts/SavedPosts'));
+import PostsIdeaMarket from './pages/my-page/postsIdeaMarket/PostsIdeaMarket';
+import Info from './pages/my-page/info/Info';
+import MyPage from './pages/my-page/myPage/MyPage';
+import RecentNews from './pages/my-page/myPage/RecentNews';
+import MyPagePosts from './pages/my-page/myPagePosts/MyPagePosts';
+import PostsRequestAssign from './pages/my-page/postsRequestAssign/PostsRequestAssign';
+import PostsCollaboration from './pages/my-page/postsCollaboration/PostsCollaboration';
+import IdeaMarketRegistered from './pages/my-page/postsIdeaMarket/IdeaMarketRegistered';
+import RequestAssignRegistered from './pages/my-page/postsRequestAssign/RequestAssignRegistered';
+import CollaborationRegistered from './pages/my-page/postsCollaboration/CollaborationRegistered';
+import IdeaMarketEdit from './pages/my-page/postsIdeaMarket/IdeaMarketEdit';
+import PurchaseList from './pages/my-page/apply/PurchaseList';
+import ApplyRequest from './pages/my-page/apply/ApplyRequest';
+import ApplyCollaboration from './pages/my-page/apply/ApplyCollaboration';
+import Portfolio from './pages/my-page/portfolio/Portfolio';
+import Message from './pages/my-page/message/Message';
+import SavedPosts from './pages/my-page/saved-posts/SavedPosts';
 
 /**  */
-const PersonalProfile = lazy(
-  () => import('./pages/personal-profile/PersonalProfile'),
-);
+import ErrorPage from './pages/errorPage/ErrorPage';
+import PersonalProfile from './pages/personal-profile/PersonalProfile';
+
 const Main = lazy(() => import('./pages/main/main'));
 const Signup = lazy(() => import('./pages/sign-up/Signup'));
 const Login = lazy(() => import('./pages/login/Login'));
-const ErrorPage = lazy(() => import('./pages/errorPage/ErrorPage'));
 
 export const routes = createBrowserRouter([
   {

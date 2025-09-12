@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   forwardRef,
+  lazy,
   useContext,
   useEffect,
   useRef,
@@ -27,7 +28,6 @@ import {
   CATEGORY_MAPPER_TO_ENG,
 } from '../../../constants/categoryMapper';
 import ImageInput from '../../../assets/icons/imageInput.svg?react';
-import { QuillToolbar } from './QuillToolbar';
 import { Dropdown } from '../../common/dropdown/Dropdown';
 import { PORTFOLIO_DETAIL_INIT } from '../../../constants/initValues';
 import { getPresignedURL } from '../../../apis/commonAPI';
@@ -35,6 +35,7 @@ import axios from 'axios';
 import { ToastContext } from '../../../contexts/toastContext';
 import { DeleteCheckModal } from './DeleteCheckModal';
 import { Image } from '../../common/image/Image';
+const QuillEditor = lazy(() => import('../../common/quillEditor/QuillEditor'));
 
 interface PortfolioDetailModalPropsType {
   onClose: () => void;
@@ -46,9 +47,6 @@ export const PortfolioDetailModal = forwardRef<
   HTMLDivElement,
   PortfolioDetailModalPropsType
 >(({ onClose, cardId, editable = true }, ref) => {
-  const modules = {
-    toolbar: { container: '#toolbar' },
-  };
   const quillRef = useRef<ReactQuill>(null);
   const { errorToast, successToast } = useContext(ToastContext);
   const IMAGE_BASE_URL = import.meta.env.VITE_S3_URL;
@@ -253,18 +251,18 @@ export const PortfolioDetailModal = forwardRef<
                   포트폴리오 내용
                 </div>
                 <div className={classNames(styles.contentInputWrapper)}>
-                  <QuillToolbar />
                   <Controller
                     name='content'
                     control={control}
                     render={({ field }) => (
-                      <ReactQuill
+                      <QuillEditor
                         {...field}
                         ref={quillRef}
-                        modules={modules}
                         className={classNames(styles.textInput)}
                         placeholder='내용을 입력하세요'
-                        onChange={(content: string) => field.onChange(content)}
+                        onChangeHandler={(content: string) =>
+                          field.onChange(content)
+                        }
                       />
                     )}
                   />

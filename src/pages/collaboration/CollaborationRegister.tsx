@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, lazy } from 'react';
 import ReactQuill from 'react-quill-new';
 import { useNavigate } from 'react-router-dom';
-import 'react-quill-new/dist/quill.snow.css';
 import styles from './collaborationRegister.module.scss';
 import MainImage from '../../assets/icons/mainImage.svg?react';
 import DownButton from '../../assets/icons/categoryDownButton.svg?react';
@@ -10,6 +9,9 @@ import CheckButton from '../../assets/icons/checkButton.svg?react';
 import DisabledCheckButton from '../../assets/icons/disabledCheckButton.svg?react';
 import { Image } from '../../components/common/image/Image';
 import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
+const QuillEditor = lazy(
+  () => import('../../components/common/quillEditor/QuillEditor'),
+);
 
 interface CollaborationRequestData {
   title: string;
@@ -77,8 +79,6 @@ const visibilityToEnum: Record<string, PostAuth> = {
   기업공개: 'COMPANY',
   비공개: 'ME',
 };
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 import { MetaTag } from '../../seoMetaTag';
@@ -394,47 +394,6 @@ const CollaborationRegister = () => {
     };
   }, [previewImageUrl]);
 
-  const modules = useMemo(() => {
-    return {
-      toolbar: {
-        container: [
-          [{ font: [] }, { size: [] }, { align: [] }],
-          ['link', 'image'],
-        ],
-        handlers: {
-          image: () => {
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-            input.click();
-
-            input.onchange = async () => {
-              const file = input.files?.[0];
-              if (file) {
-                if (file.size > MAX_FILE_SIZE) {
-                  alert('이미지 파일 크기는 5MB를 초과할 수 없습니다.');
-                  return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = () => {
-                  const quill = quillRef.current?.getEditor();
-                  if (quill) {
-                    const range = quill.getSelection(true);
-                    quill.insertEmbed(range.index, 'image', reader.result);
-                  }
-                };
-                reader.readAsDataURL(file);
-              }
-            };
-          },
-        },
-      },
-    };
-  }, []);
-
-  const formats = ['font', 'size', 'align', 'link', 'image'];
-
   return (
     <>
       <MetaTag
@@ -540,15 +499,12 @@ const CollaborationRegister = () => {
             className={styles.visuallyHidden}>
             아이디어 내용
           </label>
-          <ReactQuill
+          <QuillEditor
             ref={quillRef}
             id='editor'
             value={content}
-            onChange={setContent}
+            onChangeHandler={setContent}
             className={styles.editor}
-            theme='snow'
-            modules={modules}
-            formats={formats}
             placeholder='아이디어 내용을 입력하세요. (필수)'
           />
         </div>

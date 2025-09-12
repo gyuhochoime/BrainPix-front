@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { lazy } from 'react';
+
 import ReactQuill from 'react-quill-new';
 import styles from '../../../pages/idea-market/ideaMarketRegister.module.scss';
+const QuillEditor = lazy(() => import('../../common/quillEditor/QuillEditor'));
 
 interface ContentEditorProps {
   value: string;
@@ -14,8 +16,6 @@ export const ContentEditor = ({
   value,
   onChange,
   quillRef,
-  modules,
-  formats,
 }: ContentEditorProps) => {
   return (
     <div className={styles.formGroup}>
@@ -24,15 +24,12 @@ export const ContentEditor = ({
         className={styles.visuallyHidden}>
         아이디어 내용
       </label>
-      <ReactQuill
+      <QuillEditor
         ref={quillRef}
         id='editor'
         value={value}
-        onChange={onChange}
+        onChangeHandler={onChange}
         className={styles.editor}
-        theme='snow'
-        modules={modules}
-        formats={formats}
         placeholder='아이디어 내용을 입력하세요. (필수)'
       />
     </div>

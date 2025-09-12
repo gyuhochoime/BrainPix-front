@@ -8,6 +8,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       treeshake: true,
+      output: {
+        manualChunks: {
+          router: ['react-router-dom'], // React Router를 별도 번들로 분리
+        },
+      },
     },
     cssCodeSplit: true,
   },
